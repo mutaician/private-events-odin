@@ -1,3 +1,18 @@
 <h1><%= @event.name %></h1>
 <p><strong>Date:</strong> <%= @event.date %></p>
 <p><strong>Location:</strong> <%= @event.location %></p>
+<p><strong>Creator:</strong> <%= @event.creator.name %></p>
+<% if @event.attendees.include?(current_user) %>
+    <p> <%= button_to 'Cancel Attendance', event_attendance_path(event_id: @event.id), method: :delete, data: { turbo_method: :delete } %> </p>
+<% else %>
+    <p> <%= button_to 'Attend Event', event_attendances_path(event_id: @event.id) %> </p>
+<% end %>
+
+<h2>Attendees</h2>
+<div class="attendees">
+    <ol>
+        <% @event.attendees.each do |attendee| %>
+            <li><%= attendee.name %></li>
+        <% end %>
+    </ol>
+</div>

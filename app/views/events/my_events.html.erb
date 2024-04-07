@@ -1,0 +1,23 @@
+<h1>Your Attended Events</h1>
+
+<h2>Future Events</h2>
+<% @my_attended_events.each do |event| %>
+  <% if event.date > Time.now %>
+    <div class="event-div">
+      <h3><%= event.name %></h3>
+      <p><%= event.date %></p>
+      <p><%= event.location %></p>
+    </div>
+  <% end %>
+<% end %>
+
+<h2>Past Events</h2>
+<% @my_attended_events.each do |event| %>
+  <% if event.date <= Time.now %>
+    <div class="event-div">
+      <h3><%= event.name %></h3>
+      <p><%= event.date %></p>
+      <p><%= event.location %></p>
+    </div>
+  <% end %>
+<% end %>
