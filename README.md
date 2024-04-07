@@ -1,24 +1,12 @@
-# README
+## Project: Private Events
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Description
+This project is a simple implementation of a private events website. Users can sign up, create events, and attend events. Users can also see a list of events they are attending and events they have created.Based on the project from [The Odin Project](https://www.theodinproject.com/paths/full-stack-ruby-on-rails/courses/ruby-on-rails/lessons/private-events).
 
-Things you may want to cover:
+### Features
+- Users can sign up and log in.
+- Users can create events.
+- Users can attend events.
+- Users can see a list of events they are attending and events they have created.
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

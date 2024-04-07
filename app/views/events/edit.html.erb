@@ -1,6 +1,6 @@
 <h1>Edit Event</h1>
 
-<%= form_for(@event, html: {class: 'event-form'}) do |f| %> 
+<%= form_for(@event, html: {class: 'event-form'}, data: { controller: "event-form" } ) do |f| %> 
   <% if @event.errors.any? %>
     <div id="error">
       <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -22,6 +22,17 @@
   <div class="field">
     <%= f.label :date %><br>
     <%= f.date_field :date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :private, 'Private Event?'%>
+    <%= f.check_box :private, data: { event_form_target: "private", action: "event-form#updateInviteesField" } %>
+  </div>
+
+  <div class="field invitees-field" data-event-form-target="invitees">
+    <%= f.label :invitees %><br>
+    <%# f.collection_select :invitee_ids, User.all, :id, :name, {}, {multiple: true} %>
+    <%= f.collection_check_boxes :invitee_ids, User.all, :id, :name %>
   </div>
   <div class="actions">
     <%= f.submit "Update Event"%>

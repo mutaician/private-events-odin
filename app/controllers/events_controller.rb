@@ -14,6 +14,12 @@ class EventsController < ApplicationController
   def create
     @event = current_user.created_events.build(event_params)
     if @event.save
+      if @event.private
+        invitee_ids = params[:event][:invitee_ids].reject(&:blank?)
+        invitee_ids.each do |invitee_id|
+          Invitation.create(inviter_id: current_user.id, invitee_id: invitee_id, event_id: @event.id) if invitee_id.present?
+        end
+      end
       redirect_to my_created_events_path, notice: 'Event was successfully created.'
     else
       render :new, status: :unprocessable_entity
@@ -45,6 +51,13 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     if @event.update(event_params)
+      @event.invitations.destroy_all
+      if @event.private
+        invitee_ids = params[:event][:invitee_ids].reject(&:blank?)
+        invitee_ids.each do |invitee_id|
+          Invitation.create(inviter_id: current_user.id, invitee_id: invitee_id, event_id: @event.id) if invitee_id.present?
+        end
+      end
       redirect_to event_path(@event), notice: 'Event was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
@@ -53,7 +66,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:name, :location, :date)
+    params.require(:event).permit(:name, :location, :date, :private)
   end
 
 end

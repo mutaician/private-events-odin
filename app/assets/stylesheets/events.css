@@ -74,6 +74,7 @@ header a {
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 7px;
+    background-color: #9abbdd;
 }
 
 .button_to button{
@@ -102,4 +103,19 @@ header a {
 
 .attendees li {
     padding: 10px;
+}
+
+.field select {
+    padding: 5px;
+    font-size: 16px;
+    width: 90%;
+}
+
+.private-event{
+  display: block;
+}
+
+input{
+  padding: 7px;
+
 }

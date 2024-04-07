@@ -2,18 +2,22 @@
 
 <h2>Upcoming Events</h2>
 <% @upcoming_events.each do |event| %>
-  <div class="event-div">
-    <h3><%= link_to event.name, event_path(event) %></h3>
-    <p><b>Date:</b> <%= event.date %></p>
-    <p><b>Location:</b> <%= event.location %></p>
-  </div>
- <% end %>
+  <% if !event.private || event.invitees.include?(current_user) %>
+    <div class="event-div">
+      <h3><%= link_to event.name, event_path(event) %></h3>
+      <p><b>Date:</b> <%= event.date %></p>
+      <p><b>Location:</b> <%= event.location %></p>
+    </div>
+  <% end %>
+<% end %>
 
 <h2>Past Events</h2>
 <% @past_events.each do |event| %>
-  <div class="event-div">
-    <h3><%= link_to event.name, event_path(event) %></h3>
-    <p> <b>Date:</b> <%= event.date %></p>
-    <p> <b>Location</b> <%= event.location %></p>
-  </div>
+  <% if !event.private || event.invitees.include?(current_user) %>
+    <div class="event-div">
+      <h3><%= link_to event.name, event_path(event) %></h3>
+      <p><b>Date:</b> <%= event.date %></p>
+      <p><b>Location:</b> <%= event.location %></p>
+    </div>
+  <% end %>
 <% end %>

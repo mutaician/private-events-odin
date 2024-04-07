@@ -1,6 +1,6 @@
 <h2>Create an event</h2>
 
-<%= form_with model: @event, html: {class: 'event-form'} do |f| %>
+<%= form_with model: @event, html: {class: 'event-form'}, data: { controller: "event-form" } do |f| %>
     <% if @event.errors.any? %>
         <div id="error">
             <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -24,6 +24,17 @@
   <div class="field">
     <%= f.label :date %>
     <%= f.date_field :date %>
+  </div>
+
+  <div class="field private-event">
+    <%= f.label :private, 'Private Event?'%>
+    <%= f.check_box :private, data: { event_form_target: "private", action: "event-form#updateInviteesField" } %>
+  </div>
+
+  <div class="field invitees-field" data-event-form-target="invitees">
+    <%= f.label :invitees %> <br>
+    <%= f.collection_select :invitee_ids, User.all, :id, :name, {}, {multiple: true} %>
+    <%# f.select :invitee_ids, User.all.collect { |u| [u.name, u.id] }, {}, { multiple: true } %> 
   </div>
 
   <div class="actions">
